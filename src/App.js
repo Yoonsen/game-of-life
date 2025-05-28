@@ -30,7 +30,15 @@ function App() {
   const [cellSize, setCellSize] = useState(DEFAULT_CELL_SIZE);
   const [speed, setSpeed] = useState(DEFAULT_SPEED);
   const [grid, setGrid] = useState(() => {
-    return Array(DEFAULT_GRID_SIZE).fill().map(() => Array(DEFAULT_GRID_SIZE).fill(0));
+    const newGrid = Array(DEFAULT_GRID_SIZE).fill().map(() => Array(DEFAULT_GRID_SIZE).fill(0));
+    // Add a glider pattern in the center
+    const center = Math.floor(DEFAULT_GRID_SIZE / 2);
+    newGrid[center][center] = 1;
+    newGrid[center][center + 1] = 1;
+    newGrid[center][center + 2] = 1;
+    newGrid[center + 1][center + 2] = 1;
+    newGrid[center + 2][center + 1] = 1;
+    return newGrid;
   });
   const [running, setRunning] = useState(false);
   const intervalRef = useRef(null);
