@@ -12,8 +12,17 @@ root.render(
   </React.StrictMode>
 );
 
-// Register service worker for PWA functionality
-serviceWorkerRegistration.register();
+// Register service worker with update notification
+serviceWorkerRegistration.register({
+  onUpdate: registration => {
+    const shouldReload = window.confirm(
+      'New version available! Reload to update?'
+    );
+    if (shouldReload) {
+      window.location.reload(true);
+    }
+  }
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

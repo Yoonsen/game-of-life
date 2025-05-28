@@ -72,9 +72,17 @@ function registerValidSW(swUrl, config) {
                   'tabs for this page are closed. See https://cra.link/PWA.'
               );
 
-              // Execute callback
+              // Show update notification
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
+              } else {
+                // If no config.onUpdate is provided, show a default notification
+                const shouldReload = window.confirm(
+                  'New version available! Reload to update?'
+                );
+                if (shouldReload) {
+                  window.location.reload(true);
+                }
               }
             } else {
               // At this point, everything has been precached.
